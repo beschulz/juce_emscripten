@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="JTaust" name="juce_emscripten" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="com.betabugs.juce_emscripten" includeBinaryInAppConfig="1"
+              jucerVersion="3.1.0">
+  <MAINGROUP id="DkFPLK" name="juce_emscripten">
+    <GROUP id="{B50B7E02-3CC6-FB0A-C458-D90EC7807242}" name="Source">
+      <GROUP id="{BBF37D74-BDF0-4B61-30C3-14CE20039A8A}" name="UI">
+        <FILE id="ReXmjy" name="MainContentComponent.cpp" compile="1" resource="0"
+              file="Source/UI/MainContentComponent.cpp"/>
+        <FILE id="cQJV9c" name="MainContentComponent.h" compile="0" resource="0"
+              file="Source/UI/MainContentComponent.h"/>
+      </GROUP>
+      <FILE id="t0yNBO" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <LINUX_MAKE targetFolder="Builds/Linux" extraCompilerFlags="-D_NL_IDENTIFICATION_LANGUAGE=0&#10;-D_NL_IDENTIFICATION_TERRITORY=0">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" libraryPath="" isDebug="0" optimisation="1" targetName="juce_commandline.html"
+                       headerPath="../../compat&#10;/usr/X11R6/include/"/>
+        <CONFIGURATION name="Release" libraryPath="" isDebug="0" optimisation="2" targetName="juce_commandline.html"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../modules"/>
+        <MODULEPATH id="juce_events" path="../../modules"/>
+        <MODULEPATH id="juce_graphics" path="../../modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULES id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>
