@@ -15,7 +15,9 @@
 ## Hacking
 
 - [Download Emscripten](http://kripken.github.io/emscripten-site/docs/getting_started/downloads.html)
-- install Emscripten ```# Fetch the latest registry of available tools.
+- install Emscripten
+```shell
+# Fetch the latest registry of available tools.
 ./emsdk update
 
 # Download and install the latest SDK tools.
@@ -27,7 +29,10 @@
 # Set the current Emscripten path on Linux/Mac OS X
 source ./emsdk_env.sh
 ```
-- compile the sample ```cd examples/juce_emscripten/Builds/Linux/
+
+- compile the sample
+```shell
+cd examples/juce_emscripten/Builds/Linux/
 CXX=em++ make CONFIG=Debug
 cd build
 python -m SimpleHTTPServer
