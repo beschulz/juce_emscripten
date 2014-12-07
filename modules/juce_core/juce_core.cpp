@@ -79,7 +79,7 @@
   #include <netinet/in.h>
  #endif
 
- #if JUCE_LINUX
+ #if JUCE_LINUX | JUCE_EMSCRIPTEN
   #include <langinfo.h>
   #include <ifaddrs.h>
  #endif
@@ -95,6 +95,10 @@
 
  #if ! JUCE_ANDROID
   #include <execinfo.h>
+ #endif
+ 
+ #if JUCE_EMSCRIPTEN
+  #include <signal.h>
  #endif
 #endif
 
@@ -201,7 +205,7 @@ namespace juce
 #include "native/juce_win32_Threads.cpp"
 
 //==============================================================================
-#elif JUCE_LINUX
+#elif JUCE_LINUX || JUCE_EMSCRIPTEN
 #include "native/juce_linux_CommonFile.cpp"
 #include "native/juce_linux_Files.cpp"
 #include "native/juce_linux_Network.cpp"

@@ -164,7 +164,7 @@
     type##localFunctionName localFunctionName = (type##localFunctionName) dll.getFunction (#functionName);
 
 //==============================================================================
-#elif JUCE_LINUX
+#elif JUCE_LINUX || JUCE_EMSCRIPTEN
  #include <sched.h>
  #include <pthread.h>
  #include <sys/time.h>

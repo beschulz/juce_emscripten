@@ -128,7 +128,7 @@ int NativeImageType::getTypeID() const
     return 1;
 }
 
-#if JUCE_WINDOWS || JUCE_LINUX
+#if JUCE_WINDOWS || JUCE_LINUX || JUCE_EMSCRIPTEN
 ImagePixelData::Ptr NativeImageType::create (Image::PixelFormat format, int width, int height, bool clearImage) const
 {
     return new SoftwarePixelData (format, width, height, clearImage);

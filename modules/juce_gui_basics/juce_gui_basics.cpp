@@ -292,6 +292,9 @@ extern bool juce_areThereAnyAlwaysOnTopWindows();
  #include "native/juce_android_Windowing.cpp"
  #include "native/juce_android_FileChooser.cpp"
 
+#elif JUCE_EMSCRIPTEN
+ #include "native/juce_emscripten_Windowing.cpp"
+
 #endif
 
 }

@@ -98,6 +98,9 @@ namespace juce
  #include "../juce_core/native/juce_android_JNIHelpers.h"
  #include "native/juce_android_Messaging.cpp"
 
+#elif JUCE_EMSCRIPTEN
+ #include "native/juce_emscripten_Messaging.cpp"
+
 #endif
 
 }

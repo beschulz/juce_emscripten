@@ -90,6 +90,15 @@ public:
 #elif JUCE_ANDROID
  #define START_JUCE_APPLICATION(AppClass) \
    juce::JUCEApplicationBase* juce_CreateApplication() { return new AppClass(); }
+#elif JUCE_EMSCRIPTEN
+  #define START_JUCE_APPLICATION(AppClass) \
+   juce::JUCEApplicationBase* juce_CreateApplication() { return new AppClass(); } \
+   extern void launchApp(); \
+   extern "C" int main(int argc, char* argv[]) \
+   { \
+      launchApp(); \
+      return 0; \
+   }
 
 #else
  #if JUCE_WINDOWS && ! defined (_CONSOLE)

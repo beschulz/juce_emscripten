@@ -194,6 +194,8 @@ public:
     {
         for (int i = 0; i < paths.size(); ++i)
         {
+            std::clog << "scanFontPaths:" << File::getCurrentWorkingDirectory().getChildFile (paths[i]).getFullPathName() << std::endl;
+
             DirectoryIterator iter (File::getCurrentWorkingDirectory()
                                        .getChildFile (paths[i]), true);
 
@@ -237,6 +239,8 @@ private:
         int faceIndex = 0;
         int numFaces = 0;
 
+        std::clog << "got font: " << file.getFullPathName() << std::endl;
+
         do
         {
             FTFaceWrapper face (library, file, faceIndex);
@@ -257,14 +261,20 @@ private:
 
     const KnownTypeface* matchTypeface (const String& familyName, const String& style) const noexcept
     {
+        std::clog << "matchTypeface: " << familyName << " " << style << std::endl;
+
         for (int i = 0; i < faces.size(); ++i)
         {
             const KnownTypeface* const face = faces.getUnchecked(i);
 
-            if (face->family == familyName
+            std::clog << "  matchTypeface: " << face->family << " " << face->style << std::endl;
+
+            if ((face->family == familyName || familyName.isEmpty())
                   && (face->style.equalsIgnoreCase (style) || style.isEmpty()))
                 return face;
         }
+
+        std::cout << "NO MATCHING FONT FOUND" << std::endl;
 
         return nullptr;
     }

@@ -66,6 +66,8 @@
   #endif
 #elif defined (__FreeBSD__)
   #define       JUCE_BSD 1
+#elif defined(__EMSCRIPTEN__)
+  #define JUCE_EMSCRIPTEN 1
 #else
   #error "Unknown platform!"
 #endif

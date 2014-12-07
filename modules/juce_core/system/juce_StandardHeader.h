@@ -83,7 +83,7 @@
  #include <libkern/OSAtomic.h>
 #endif
 
-#if JUCE_LINUX
+#if JUCE_LINUX || JUCE_EMSCRIPTEN
  #include <signal.h>
 
  #if __INTEL_COMPILER

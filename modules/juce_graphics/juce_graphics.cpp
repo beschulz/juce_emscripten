@@ -145,7 +145,7 @@ namespace juce
   #include "native/juce_win32_Direct2DGraphicsContext.cpp"
  #endif
 
-#elif JUCE_LINUX
+#elif JUCE_LINUX || JUCE_EMSCRIPTEN
  #include "native/juce_linux_Fonts.cpp"
 
 #elif JUCE_ANDROID

@@ -154,6 +154,12 @@ static LONG WINAPI handleCrash (LPEXCEPTION_POINTERS)
     globalCrashHandler();
     return EXCEPTION_EXECUTE_HANDLER;
 }
+#elif defined(JUCE_EMSCRIPTEN)
+static void handleCrash (int)
+{
+    globalCrashHandler();
+    //kill (getpid(), SIGKILL);
+}
 #else
 static void handleCrash (int)
 {
@@ -171,6 +177,8 @@ void SystemStats::setApplicationCrashHandler (CrashHandlerFunction handler)
 
    #if JUCE_WINDOWS
     SetUnhandledExceptionFilter (handleCrash);
+   #elif defined(JUCE_EMSCRIPTEN)
+    // TODO: DO IT
    #else
     const int signals[] = { SIGFPE, SIGILL, SIGSEGV, SIGBUS, SIGABRT, SIGSYS };
 
