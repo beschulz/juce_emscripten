@@ -77,7 +77,71 @@ public:
     Rectangle<int> getComponentArea() const;
     Image createComponentLayerSnapshot() const;
 
+	void setLookAndFeelFromDynamicLibrary(String libraryName);
+	void freeLookAndFeel();
+
 private:
+	class LookAndFeelProvider
+	{
+	public:
+		LookAndFeelProvider()
+		:lookAndFeelIsFromLibrary(false)
+		,lookAndFeel(new LookAndFeel_V3())
+		{
+
+		}
+
+		LookAndFeelProvider(const String& libraryName)
+				:dynamicLibrary(libraryName)
+				,lookAndFeelIsFromLibrary(false)
+		{
+			typedef LookAndFeel* (*LookAndFeelCreate)();
+
+			if( LookAndFeelCreate f = (LookAndFeelCreate)dynamicLibrary.getFunction("juce_newLookAndFeel"))
+			{
+				lookAndFeel = f();
+				lookAndFeelIsFromLibrary = true;
+			}
+
+			// open of dynamic library, getting function pointer or creation failed
+			if(!lookAndFeel)
+			{
+				lookAndFeel = new LookAndFeel_V3();
+			}
+		}
+
+		~LookAndFeelProvider()
+		{
+			/*
+			* This takes care of the case, that the Introjucer was for example
+			* compiled against msvcrt and the dll the LookAndFeel comes from was
+			* compiled against msvcrtd. If there is just the slightest chance, that
+			* a dynamic library is using a different allocator than the loading application,
+			* it's best practice to leave the object destruction and deallocation up to
+			* the dynamic library.
+			* */
+			if(lookAndFeelIsFromLibrary)
+			{
+				typedef void (*LookAndFeelDestroy)(LookAndFeel*);
+				if(LookAndFeelDestroy f = (LookAndFeelDestroy)dynamicLibrary.getFunction("juce_deleteLookAndFeel"))
+				{
+					f(lookAndFeel.release());
+				}
+			}
+		}
+
+		LookAndFeel* getLookAndFeel()
+		{
+			return lookAndFeel;
+		}
+	private:
+		DynamicLibrary dynamicLibrary;
+		bool lookAndFeelIsFromLibrary;
+		ScopedPointer<LookAndFeel> lookAndFeel;
+	};
+
+	ScopedPointer<LookAndFeelProvider> lookAndFeelProvider;
+
     JucerDocument& document;
     ComponentLayout& layout;
     Component* subCompHolder;

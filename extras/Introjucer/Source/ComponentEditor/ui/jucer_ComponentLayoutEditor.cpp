@@ -114,6 +114,8 @@ ComponentLayoutEditor::ComponentLayoutEditor (JucerDocument& doc, ComponentLayou
 
     setSize (document.getInitialWidth(),
              document.getInitialHeight());
+
+	setLookAndFeelFromDynamicLibrary("/Users/beschulz/projects/TAUCHER.interact/RedVerb/Projects/LookAndFeelProvider/Builds/MacOSX/build/Debug/LookAndFeelProvider.dylib");
 }
 
 ComponentLayoutEditor::~ComponentLayoutEditor()
@@ -423,4 +425,24 @@ void ComponentLayoutEditor::findLassoItemsInArea (Array <Component*>& results, c
 SelectedItemSet <Component*>& ComponentLayoutEditor::getLassoSelection()
 {
     return layout.getSelectedSet();
+}
+
+void ComponentLayoutEditor::setLookAndFeelFromDynamicLibrary(String libraryName)
+{
+	ScopedPointer<LookAndFeelProvider> newProvider = new LookAndFeelProvider(libraryName);
+
+	setLookAndFeel(newProvider->getLookAndFeel());
+	sendLookAndFeelChange();
+
+	lookAndFeelProvider.swapWith(newProvider);
+}
+
+void ComponentLayoutEditor::freeLookAndFeel()
+{
+	ScopedPointer<LookAndFeelProvider> newProvider = new LookAndFeelProvider();
+
+	setLookAndFeel(newProvider->getLookAndFeel());
+	sendLookAndFeelChange();
+
+	lookAndFeelProvider.swapWith(newProvider);
 }
